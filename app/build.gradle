@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.tufei.mvvmkotlin"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.Test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    android {
+        testOptions {
+            unitTests {
+                includeAndroidResources = true
+            }
+        }
+    }
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
+    //dagger2
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+
+    // if you use the support libraries
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
+
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    implementation "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit-converters:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+
+    //gson
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
+    //okhttp(Retrofit默认引用okhttp，没必要再引用)
+    //implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation "com.squareup.okhttp3:logging-interceptor:$logInterceptorVersion"
+    androidTestImplementation "junit:junit:4.12"
+    testImplementation "junit:junit:$junitVersion"
+
+    //robolectric
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+
+    //mockito
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+
+    //powermock
+    testImplementation "org.powermock:powermock-core:$powermockVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermockVersion"
+
+    //同时使用robolectric和powermock需要这些依赖
+    testImplementation "org.powermock:powermock-classloading-xstream:$powermockVersion"
+    testImplementation "org.powermock:powermock-module-junit4-rule:$powermockVersion"
+
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+}
