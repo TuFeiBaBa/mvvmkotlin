@@ -1,7 +1,7 @@
 package com.tufei.mvvmkotlin.util
 
 import android.widget.Toast
-import junit.framework.Assert
+import junit.framework.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -20,10 +20,10 @@ class ContextExtKtTest {
     @Test
     fun showToastNormal() {
         context.showToast("hello")
-        Assert.assertEquals("hello", ShadowToast.getTextOfLatestToast())
+        assertEquals("hello", ShadowToast.getTextOfLatestToast())
 
         context.showToast("world", Toast.LENGTH_LONG)
-        Assert.assertEquals("world", ShadowToast.getTextOfLatestToast())
+        assertEquals("world", ShadowToast.getTextOfLatestToast())
     }
 
     @Test(expected = IllegalArgumentException::class)
