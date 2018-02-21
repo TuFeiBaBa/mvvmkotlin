@@ -31,6 +31,10 @@ android {
             }
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 kotlin {
@@ -42,7 +46,11 @@ kotlin {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
+    //databinding(覆盖。避免它自动使用annotationProcessor)
+    kapt 'com.android.databinding:compiler:3.0.1'
 
     //dagger2
     implementation "com.google.dagger:dagger:$daggerVersion"
