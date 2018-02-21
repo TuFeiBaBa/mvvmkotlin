@@ -1,11 +1,12 @@
 package com.tufei.architecturedemo.util
+
 import android.app.Activity
 
 /**
  * @author tufei
  * @date 2018/2/19.
  */
-object ActivityCollector{
+object ActivityCollector {
     var activities: MutableList<Activity> = ArrayList()
 
     fun addActivity(activity: Activity) {
@@ -16,7 +17,7 @@ object ActivityCollector{
         activities.remove(activity)
     }
 
-    fun finishAll() {
+    private fun finishAll() {
         for (activity in activities) {
             if (!activity.isFinishing) {
                 activity.finish()
@@ -29,5 +30,10 @@ object ActivityCollector{
      */
     fun getCurrentActivity(): Activity {
         return activities[activities.size - 1]
+    }
+
+    fun exitApp() {
+        ActivityCollector.finishAll()
+        android.os.Process.killProcess(android.os.Process.myPid())
     }
 }

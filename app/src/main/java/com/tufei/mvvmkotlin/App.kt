@@ -1,18 +1,24 @@
 package com.tufei.mvvmkotlin
 
 import android.app.ActivityManager
-import android.app.Application
 import android.content.Context
+import com.tufei.mvvmkotlin.di.DaggerAppComponent
 import com.tufei.mvvmkotlin.util.Sp
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
 /**
  * @author tufei
  * @date 2018/2/20.
  */
-class BaseApplication:Application() {
+class App : DaggerApplication() {
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> = DaggerAppComponent.builder().application(this).build()
+
     override fun onCreate() {
         super.onCreate()
-        if(isMainProcess()){
+        //有多个进程的时候，会初始化多次
+        if (isMainProcess()) {
             init()
         }
     }

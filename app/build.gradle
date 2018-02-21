@@ -47,7 +47,7 @@ dependencies {
     //dagger2
     implementation "com.google.dagger:dagger:$daggerVersion"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
 
@@ -93,4 +93,5 @@ dependencies {
 
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 }
