@@ -10,9 +10,8 @@ import com.tufei.mvvmkotlin.databinding.TestItemBinding
  */
 class TestAdapter(
         dataBindingComponent: DataBindingComponent,
-        layoutId: Int = R.layout.test_item,
-        datas: MutableList<Data>)
-    : BaseAdapter<Data, TestItemBinding>(dataBindingComponent, layoutId, datas) {
+        layoutId: Int = R.layout.test_item)
+    : BaseAdapter<Data, TestItemBinding>(dataBindingComponent, layoutId) {
 
     override fun bind(binding: TestItemBinding, data: Data) {
         binding.data = data

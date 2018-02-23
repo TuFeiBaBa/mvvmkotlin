@@ -12,11 +12,13 @@ import android.view.ViewGroup
  * @author tufei
  * @date 2018/2/21.
  */
-abstract class BaseAdapter<in T, in R : ViewDataBinding>(
+abstract class BaseAdapter<T, in R : ViewDataBinding>(
         private val dataBindingComponent: DataBindingComponent,
-        @LayoutRes private val layoutId: Int,
-        private var datas: MutableList<T>)
+        @LayoutRes private val layoutId: Int)
     : RecyclerView.Adapter<ViewHolder>() {
+
+    val datas = mutableListOf<T>()
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent?.context)
         val binding = DataBindingUtil.inflate<R>(inflater, layoutId, parent, false, dataBindingComponent)
