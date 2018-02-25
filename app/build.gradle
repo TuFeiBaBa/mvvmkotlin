@@ -52,6 +52,9 @@ dependencies {
     //databinding(覆盖。避免它自动使用annotationProcessor)
     kapt 'com.android.databinding:compiler:3.0.1'
 
+    compile "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
+    kapt "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
+
     //dagger2
     implementation "com.google.dagger:dagger:$daggerVersion"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
