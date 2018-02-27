@@ -15,48 +15,29 @@
  */
 package com.tufei.mvvmkotlin
 
-import android.annotation.SuppressLint
-import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import android.support.annotation.VisibleForTesting
-import com.tufei.mvvmkotlin.splash.SplashViewModel
+import javax.inject.Inject
+import javax.inject.Provider
+import javax.inject.Singleton
 
 /**
- * A creator is used to inject the product ID into the ViewModel
+ * A creator is used to inject the product ID into the ViewModelKey
  *
  *
  * This creator is to showcase how to inject dependencies into ViewModels. It's not
- * actually necessary in this case, as the product ID can be passed in a public method.
+ * actually necessary in this case, as the product ID can be passed in name public method.
  */
-class ViewModelFactory private constructor(
-        private val application: Application
-) : ViewModelProvider.NewInstanceFactory() {
+@Singleton
+class ViewModelFactory @Inject constructor(
+        private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
+) : ViewModelProvider.Factory {
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-            with(modelClass) {
-                when {
-                    isAssignableFrom(SplashViewModel::class.java) ->
-                        SplashViewModel(application)
-                    else ->
-                        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
-                }
-            } as T
-
-    companion object {
-
-        @SuppressLint("StaticFieldLeak")
-        @Volatile private var INSTANCE: ViewModelFactory? = null
-
-        fun getInstance(application: Application) =
-                INSTANCE ?: synchronized(ViewModelFactory::class.java) {
-                    INSTANCE ?: ViewModelFactory(application)
-                            .also { INSTANCE = it }
-                }
-
-
-        @VisibleForTesting fun destroyInstance() {
-            INSTANCE = null
-        }
-    }
+            creators[modelClass]
+                    ?.run {
+                        get() as T
+                    }
+                    ?: throw IllegalArgumentException("Unknown ViewModelKey class: ${modelClass.name}")
 }

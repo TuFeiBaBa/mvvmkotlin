@@ -11,14 +11,20 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.tufei.mvvmkotlin.splash.SplashActivity">
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="finish"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:datas="@{viewmodel.datas}"/>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:datas="@{viewmodel.datas}"
+            app:layout_constraintTop_toBottomOf="@id/button"
+            app:layout_constraintStart_toStartOf="@id/button"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

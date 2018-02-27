@@ -1,18 +1,19 @@
 package com.tufei.mvvmkotlin.splash
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.tufei.mvvmkotlin.R
 import com.tufei.mvvmkotlin.adapter.TestAdapter
 import com.tufei.mvvmkotlin.databinding.SplashActivityBinding
-import com.tufei.mvvmkotlin.util.obtainViewModel
+import com.tufei.mvvmkotlin.util.getViewModel
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.splash_activity.*
 
 
+class SplashActivity : DaggerAppCompatActivity() {
 
-class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +22,12 @@ class SplashActivity : AppCompatActivity() {
         recyclerView.adapter = testAdapter
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
-        val viewModel = obtainViewModel(SplashViewModel::class.java)
+        val viewModel = getViewModel(SplashViewModel::class.java)
         splashActivityBinding.viewmodel = viewModel
         splashActivityBinding.viewmodel?.setData()
+        button.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
     }
 }

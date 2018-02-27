@@ -1,6 +1,8 @@
 package com.tufei.mvvmkotlin.util
 
 import android.widget.Toast
+import com.tufei.mvvmkotlin.RxJava
+import io.reactivex.rxkotlin.toObservable
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,5 +31,14 @@ class ContextExtKtTest {
     @Test(expected = IllegalArgumentException::class)
     fun showToastByIllegalArgument() {
         context.showToast("", -1)
+    }
+
+    @Test fun test(){
+        RxJava.asyncToSync()
+        arrayListOf("name","b","c")
+                .toObservable()
+                .ioToMain()
+                .test()
+                .assertValues("name","b","c")
     }
 }

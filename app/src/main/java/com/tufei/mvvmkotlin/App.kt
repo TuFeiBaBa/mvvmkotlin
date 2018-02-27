@@ -1,17 +1,22 @@
 package com.tufei.mvvmkotlin
 
 import android.app.ActivityManager
+import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import com.tufei.mvvmkotlin.di.DaggerAppComponent
 import com.tufei.mvvmkotlin.util.Sp
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import javax.inject.Inject
 
 /**
  * @author tufei
  * @date 2018/2/20.
  */
 class App : DaggerApplication() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> = DaggerAppComponent.builder().application(this).build()
 

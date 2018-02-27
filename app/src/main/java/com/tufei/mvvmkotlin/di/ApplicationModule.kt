@@ -10,7 +10,7 @@ import javax.inject.Singleton
  * @author tufei
  * @date 2018/2/21.
  */
-@Module
+@Module(includes = [ViewModelModule::class])
 abstract class ApplicationModule {
     @Binds
     @Singleton
