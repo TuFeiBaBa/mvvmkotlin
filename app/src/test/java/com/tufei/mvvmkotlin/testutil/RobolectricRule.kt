@@ -1,4 +1,4 @@
-package com.tufei.mvvmkotlin
+package com.tufei.mvvmkotlin.testutil
 
 import org.junit.rules.TestRule
 import org.junit.runner.Description
@@ -12,6 +12,7 @@ import org.robolectric.shadows.ShadowLog
 class RobolectricRule : TestRule {
     override fun apply(base: Statement, description: Description?): Statement {
         ShadowLog.stream = System.out
+        RxJava.asyncToSync()
         return base
     }
 }

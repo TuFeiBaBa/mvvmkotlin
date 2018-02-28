@@ -9,9 +9,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.tufei.mvvmkotlin.BR
-import com.tufei.mvvmkotlin.util.ioToMain
-import com.tufei.mvvmkotlin.util.subscribeSuccess
-import com.tufei.mvvmkotlin.util.toSingle
+import com.tufei.mvvmkotlin.util.rx.into
+import com.tufei.mvvmkotlin.util.rx.toSingle
 
 
 /**
@@ -53,8 +52,7 @@ abstract class BaseAdapter<T, in R : ViewDataBinding>(
             else -> {
                 update(old, update)
                         .toSingle()
-                        .ioToMain()
-                        .subscribeSuccess {
+                        .into {
                             old.clear()
                             old.addAll(update)
                             it.dispatchUpdatesTo(this)
