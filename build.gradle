@@ -18,6 +18,7 @@ ext{
     gsonVersion = "2.8.1"
     logInterceptorVersion = "3.8.1"
     archLifecycleVersion = "1.1.0"
+    aspectjVersion = "1.8.13"
 
     //test
     junitVersion = '4.12'
@@ -32,13 +33,17 @@ ext{
 buildscript {
     ext.kotlinVersion = '1.2.21'
     ext.gradlePluginVersion = '3.0.1'
+    ext.aspectjVersion = '1.8.13'
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradlePluginVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.hujiang.aspectjx:gradle-android-plugin-aspectjx:1.1.1'
+        classpath "org.aspectj:aspectjtools:$aspectjVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -49,6 +54,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 }
 

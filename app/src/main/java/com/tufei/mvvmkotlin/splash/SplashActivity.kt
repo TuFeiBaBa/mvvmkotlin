@@ -1,11 +1,12 @@
 package com.tufei.mvvmkotlin.splash
 
-import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.tufei.mvvmkotlin.R
 import com.tufei.mvvmkotlin.adapter.TestAdapter
+import com.tufei.mvvmkotlin.aop.NetCheck
 import com.tufei.mvvmkotlin.databinding.SplashActivityBinding
 import com.tufei.mvvmkotlin.util.getViewModel
 import dagger.android.support.DaggerAppCompatActivity
@@ -26,8 +27,12 @@ class SplashActivity : DaggerAppCompatActivity() {
         splashActivityBinding.viewmodel = viewModel
         splashActivityBinding.viewmodel?.setData()
         button.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            test()
         }
+    }
+
+    @NetCheck
+    fun test() {
+        Log.d("Tag", "splash")
     }
 }
