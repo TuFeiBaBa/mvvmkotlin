@@ -34,6 +34,10 @@ android {
         }
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
     dataBinding {
         enabled = true
     }
@@ -46,7 +50,7 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
     //aspectj
-    implementation "org.aspectj:aspectjrt:1.8.13"
+    implementation "org.aspectj:aspectjrt:$aspectjVersion"
 
     //databinding(覆盖。避免它自动使用annotationProcessor)
     kapt 'com.android.databinding:compiler:3.0.1'

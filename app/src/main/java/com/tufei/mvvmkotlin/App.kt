@@ -4,7 +4,7 @@ import android.app.ActivityManager
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Context
 import com.tufei.mvvmkotlin.di.DaggerAppComponent
-import com.tufei.mvvmkotlin.util.Sp
+import com.tufei.mvvmkotlin.util.Preferences
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class App : DaggerApplication() {
 
     private fun init() {
         //初始化sp
-        Sp.initSharedPreferences(this)
+        Preferences.initSharedPreferences(this)
     }
 
     private fun isMainProcess(): Boolean {

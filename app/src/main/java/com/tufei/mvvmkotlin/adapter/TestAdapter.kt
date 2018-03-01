@@ -9,6 +9,11 @@ import com.tufei.mvvmkotlin.databinding.TestItemBinding
  */
 class TestAdapter(layoutId: Int = R.layout.test_item)
     : BaseAdapter<Data, TestItemBinding>(layoutId) {
+
+    override fun onBind(holder: ViewHolder, data: Data) {
+
+    }
+
     override fun areContentsTheSame(oldItem: Data, newItem: Data) = oldItem.sex == newItem.sex
 
     override fun areItemsTheSame(oldItem: Data, newItem: Data) = oldItem.name == newItem.name

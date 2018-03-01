@@ -1,16 +1,19 @@
 package com.tufei.mvvmkotlin.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.tufei.mvvmkotlin.constant.Constant
+import com.tufei.mvvmkotlin.util.Preferences.Companion.initSharedPreferences
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /**
+ * SharedPreferences operation, you need to invoke [initSharedPreferences] when initialize application
  * @author tufei
  * @date 2018/2/20.
  */
-class Sp<T>(private val key: String, private val default: T) : ReadWriteProperty<Any?, T> {
+class Preferences<T>(private val key: String, private val default: T) : ReadWriteProperty<Any?, T> {
 
     companion object {
         private lateinit var sharePreferences: SharedPreferences
@@ -44,6 +47,7 @@ class Sp<T>(private val key: String, private val default: T) : ReadWriteProperty
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) = putData(key, value)
 
+    @SuppressLint("CommitPrefEdits")
     private fun putData(key: String, value: T) = with(sharePreferences.edit()) {
         when (value) {
             is Int -> putInt(key, value)

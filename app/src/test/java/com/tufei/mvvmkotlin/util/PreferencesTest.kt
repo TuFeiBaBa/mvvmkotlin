@@ -1,6 +1,5 @@
 package com.tufei.mvvmkotlin.util
 
-import com.tufei.mvvmkotlin.BuildConfig
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -13,13 +12,13 @@ import org.robolectric.RuntimeEnvironment
  * @date 2018/2/21.
  */
 @RunWith(RobolectricTestRunner::class)
-class SpTest {
-    private var boolean: Boolean by Sp("boolean", false)
-    private var string: String by Sp("string", "")
+class PreferencesTest {
+    private var boolean: Boolean by Preferences("boolean", false)
+    private var string: String by Preferences("string", "")
 
     @Before
     fun setup(){
-        Sp.initSharedPreferences(RuntimeEnvironment.application)
+        Preferences.initSharedPreferences(RuntimeEnvironment.application)
     }
 
     @Test
