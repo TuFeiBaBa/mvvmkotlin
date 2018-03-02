@@ -2,7 +2,10 @@ package com.tufei.mvvmkotlin
 
 import android.app.Activity
 import android.content.Intent
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import com.tufei.architecturedemo.util.ActivityCollector
 import dagger.android.support.DaggerAppCompatActivity
 
@@ -17,8 +20,12 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         ActivityCollector.addActivity(this)
     }
 
+    inline fun <reified T : ViewDataBinding> setLayout(@LayoutRes layoutId: Int): T {
+        return DataBindingUtil.setContentView(this, layoutId)
+    }
+
     inline fun <reified T : Activity> startActivity(bundle: Bundle? = null) {
-        var intent = Intent(this, T::class.java).apply {
+        val intent = Intent(this, T::class.java).apply {
             if (bundle != null) {
                 putExtras(bundle)
             }

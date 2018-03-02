@@ -2,6 +2,7 @@ package com.tufei.mvvmkotlin.di
 
 import com.tufei.mvvmkotlin.splash.SplashActivity
 import com.tufei.mvvmkotlin.splash.SplashModule
+import com.tufei.mvvmkotlin.test.TestAdapterActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -14,4 +15,7 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [SplashModule::class])
     abstract fun splashActivity(): SplashActivity
+    @ActivityScoped
+    @ContributesAndroidInjector()
+    abstract fun testAdapterActivity(): TestAdapterActivity
 }
