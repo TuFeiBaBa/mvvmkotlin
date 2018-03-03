@@ -13,8 +13,9 @@ object Bindings {
     @BindingAdapter("datas")
     @JvmStatic
     fun <T> setDatas(recyclerView: RecyclerView, datas: MutableList<T>) {
-        with(recyclerView.adapter as BaseAdapter<T, ViewDataBinding>) {
-            this.datas = datas
-        }
+        val adapter =
+                recyclerView.adapter as? BaseAdapter<T, ViewDataBinding>
+                        ?: throw NullPointerException("RecyclerView must set Adapter!")
+        adapter.datas = datas
     }
 }
