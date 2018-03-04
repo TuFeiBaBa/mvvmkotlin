@@ -15,10 +15,12 @@
         <activity android:name=".splash.SplashActivity">
 
         </activity>
-        <activity android:name=".test.TestAdapterActivity">
+        <activity android:name=".test.adapter.TestAdapterActivity">
+
+        </activity>
+        <activity android:name=".test.aop.ClickCheckActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

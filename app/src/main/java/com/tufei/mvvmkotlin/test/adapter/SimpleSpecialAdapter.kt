@@ -1,4 +1,4 @@
-package com.tufei.mvvmkotlin.test
+package com.tufei.mvvmkotlin.test.adapter
 
 import android.util.Log
 import android.view.View.GONE

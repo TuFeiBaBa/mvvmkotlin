@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="com.tufei.mvvmkotlin.test.AdapterViewModel"/>
+            type="com.tufei.mvvmkotlin.test.adapter.AdapterViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

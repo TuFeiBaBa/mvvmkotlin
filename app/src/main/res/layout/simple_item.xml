@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.tufei.mvvmkotlin.test.TestData"/>
+            type="com.tufei.mvvmkotlin.test.adapter.TestData"/>
 
         <variable
             name="listener"

@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.tufei.mvvmkotlin.ViewModelFactory
 import com.tufei.mvvmkotlin.splash.SplashViewModel
-import com.tufei.mvvmkotlin.test.AdapterViewModel
+import com.tufei.mvvmkotlin.test.adapter.AdapterViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

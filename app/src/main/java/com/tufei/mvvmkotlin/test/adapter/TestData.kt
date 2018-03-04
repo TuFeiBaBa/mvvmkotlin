@@ -1,4 +1,4 @@
-package com.tufei.mvvmkotlin.test
+package com.tufei.mvvmkotlin.test.adapter
 
 /**
  * @author tufei
