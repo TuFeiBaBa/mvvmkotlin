@@ -8,26 +8,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 /**
- * @author tufei
- * @date 2018/3/2.
- */
-/**
  * 项目里，有个特殊的情况经常出现，RecyclerView是网格布局，且第一个条目
  * 要特殊对待：第一个条目是固定存在的点击添加条目
  * @author tufei
- * @date 2018/2/21
+ * @date 2018/3/2.
  */
-abstract class SpecialAdapter<T, in R : ViewDataBinding>(
+abstract class BaseSpecialAdapter<T, in R : ViewDataBinding>(
         @LayoutRes private val layoutId: Int)
     : BaseAdapter<T, R>(layoutId) {
 
     override var datas = mutableListOf<T>()
         /**
-         * 使用[DiffUtil.DiffResult]做了一定的优化处理，但需要你在你的adapter里面，实现
-         * 属于你自己的[areItemsTheSame]和[areContentsTheSame]方法，才能实现优化
+         * 不能再像[BaseAdapter]那样使用[DiffUtil.DiffResult]做了一定的优化处理,
+         * 不然datas有变更，会出现第一个条目的消失Bug
          */
         set(update) {
-            replace(field, update)
+            field.clear()
+            field.addAll(update)
+            notifyDataSetChanged()
         }
 
     override fun addItem(data: T) {
@@ -53,14 +51,19 @@ abstract class SpecialAdapter<T, in R : ViewDataBinding>(
 
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        onBind(holder.binding as R, position)
+        if (position == 0) {
+            onBindSpecial(holder.binding as R)
+        } else {
+            onBind(holder.binding as R, datas[position - 1], position - 1)
+        }
         holder.binding.executePendingBindings()
     }
 
-    /**
-     * 本质就是adapter的[onBindViewHolder]
-     */
-    abstract fun onBind(binding: R, position: Int)
+    abstract fun onBindSpecial(binding: R)
 
     override fun getItemCount(): Int = datas.size + 1
+
+    override fun areItemsTheSame(oldItem: T, newItem: T) = false
+
+    override fun areContentsTheSame(oldItem: T, newItem: T) = false
 }

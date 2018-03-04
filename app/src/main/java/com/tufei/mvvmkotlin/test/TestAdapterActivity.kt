@@ -32,6 +32,18 @@ class TestAdapterActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(this@TestAdapterActivity)
         }
 
+        with(specialRecyclerView) {
+            adapter = SimpleSpecialAdapter().apply {
+                itemListener = object : OnItemClickListener<TestData> {
+                    override fun onClick(view: View, data: TestData) {
+                        val position = view.tag as? Int
+                        Log.d(TAG, "special:position:$position,data:$data")
+                    }
+                }
+            }
+            layoutManager = LinearLayoutManager(this@TestAdapterActivity)
+        }
+
         val viewModel = getViewModel(AdapterViewModel::class.java)
         binding.viewmodel = viewModel
         binding.viewmodel?.setData()

@@ -21,6 +21,10 @@ abstract class BaseAdapter<T, in R : ViewDataBinding>(
         @LayoutRes private val layoutId: Int)
     : RecyclerView.Adapter<ViewHolder>() {
     protected val TAG = javaClass.simpleName
+    var itemListener: OnItemClickListener<T>? = null
+    var itemRemoveListener: OnItemRemoveListener<T>? = null
+    var itemAddListener: OnItemAddListener<T>? = null
+
     open var datas = mutableListOf<T>()
         /**
          * 使用[DiffUtil.DiffResult]做了一定的优化处理，但需要你在你的adapter里面，实现
