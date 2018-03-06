@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--dialog-->
+    <color name="dialog_bg_white">#fefefe</color>
+    <color name="dialog_bg_title_blue">#4d92fc</color>
+    <color name="dialog_content_gray">#4f5566</color>
+    <color name="colorDivider">#DCDCDC</color>
+    <color name="dialog_btn_gray">#868686</color>
+    <color name="dialog_et_cursor_blue">#4d92fc</color>
+
 </resources>

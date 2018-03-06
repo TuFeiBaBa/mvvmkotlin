@@ -24,7 +24,7 @@ ext{
     junitVersion = '4.12'
     runnerVersion = '1.0.1'
     espressoVersion = '3.0.1'
-    robolectricVersion = "3.6.1"
+    robolectricVersion = "3.7.1"
     mockitoVersion = '2.8.47'
     powermockVersion = '1.7.1'
 }

@@ -93,6 +93,7 @@ dependencies {
 
     //robolectric
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.robolectric:shadows-support-v4:3.3.2"
 
     //mockito
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
