@@ -1,10 +1,12 @@
 package com.tufei.mvvmkotlin.testutil
 
+import android.app.Application
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.powermock.core.classloader.annotations.PowerMockIgnore
 import org.powermock.modules.junit4.rule.PowerMockRule
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
 /**
  * 基类。当需要使用robolectric+powermock测试时，继承该类即可。
@@ -16,6 +18,7 @@ import org.robolectric.RobolectricTestRunner
  */
 @RunWith(RobolectricTestRunner::class)
 @PowerMockIgnore(value = ["org.mockito.*", "org.robolectric.*", "android.*"])
+@Config(application = Application::class)
 open class PowerWithRobolectricTest {
     @get:Rule
     var rule = PowerMockRule()
