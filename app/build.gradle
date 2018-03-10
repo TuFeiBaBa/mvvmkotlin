@@ -17,6 +17,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.Test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -48,6 +54,12 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+
+    //room
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    kapt "android.arch.persistence.room:compiler:$roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$roomVersion"
+    testImplementation "android.arch.persistence.room:testing:$roomVersion"
 
     //aspectj
     implementation "org.aspectj:aspectjrt:$aspectjVersion"

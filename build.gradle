@@ -1,5 +1,5 @@
 //define version in a single place
-ext{
+ext {
     //sdk and tools
     minSdkVersion = 14
     targetSdkVersion = 26
@@ -19,6 +19,7 @@ ext{
     logInterceptorVersion = "3.8.1"
     archLifecycleVersion = "1.1.0"
     aspectjVersion = "1.8.13"
+    roomVersion = "1.0.0"
 
     //test
     junitVersion = '4.12'
