@@ -16,7 +16,6 @@
 package com.tufei.mvvmkotlin.db
 
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.internal.operators.completable.CompletableFromAction
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -31,7 +30,7 @@ class PersonsLocalDataSource @Inject constructor(
 ) : PersonsDataSource {
     override fun getPersons() = personsDao.getPersons()
 
-    override fun getPerson(personId: String): Flowable<Person> =
+    override fun getPerson(personId: String) =
             personsDao.getPersonById(personId)
 
     override fun savePerson(person: Person): Completable =
@@ -39,9 +38,10 @@ class PersonsLocalDataSource @Inject constructor(
                 personsDao.insertPersion(person)
             }
 
-    override fun deletePersons(): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun deletePersons(): Completable =
+            CompletableFromAction{
+                personsDao.deletePersons()
+            }
 
     override fun deletePerson(taskId: String): Completable {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

@@ -25,6 +25,7 @@ abstract class PersonDatabase : RoomDatabase() {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                             PersonDatabase::class.java, "persons.db")
+                            .allowMainThreadQueries()
                             .build()
                 }
                 return INSTANCE!!

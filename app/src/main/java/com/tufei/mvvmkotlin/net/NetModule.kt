@@ -21,6 +21,6 @@ class NetModule {
     @Provides
     @Singleton
     internal fun provideRetrofit(): Retrofit {
-        return RetrofitFactory.retrofit
+        return RetrofitFactory.createRetrofit()
     }
 }
