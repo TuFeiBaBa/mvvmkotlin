@@ -49,6 +49,10 @@ android {
     }
 }
 
+aspectjx {
+    excludeJarFilter '.jar'
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"

@@ -1,4 +1,4 @@
-package com.tufei.mvvmkotlin.testutil
+package com.tufei.mvvmkotlin.util.rx
 
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins

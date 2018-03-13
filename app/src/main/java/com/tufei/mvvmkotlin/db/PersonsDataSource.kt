@@ -16,5 +16,5 @@ interface PersonsDataSource {
 
     fun deletePersons():Completable
 
-    fun deletePerson(taskId: String):Completable
+    fun deletePerson(personId: String):Completable
 }

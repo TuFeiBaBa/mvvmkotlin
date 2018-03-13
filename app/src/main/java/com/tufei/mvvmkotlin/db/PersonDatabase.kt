@@ -3,6 +3,7 @@ package com.tufei.mvvmkotlin.db
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.TypeConverters
 import android.content.Context
 
 /**
@@ -10,6 +11,7 @@ import android.content.Context
  * @date 2018/3/10.
  */
 @Database(entities = [Person::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class PersonDatabase : RoomDatabase() {
 
     abstract fun personDao(): PersonsDao

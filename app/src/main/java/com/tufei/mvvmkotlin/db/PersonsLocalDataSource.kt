@@ -39,12 +39,13 @@ class PersonsLocalDataSource @Inject constructor(
             }
 
     override fun deletePersons(): Completable =
-            CompletableFromAction{
+            CompletableFromAction {
                 personsDao.deletePersons()
             }
 
-    override fun deletePerson(taskId: String): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun deletePerson(personId: String): Completable =
+            CompletableFromAction {
+                personsDao.deletePersonById(personId)
+            }
 
 }
