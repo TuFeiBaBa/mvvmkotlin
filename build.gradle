@@ -6,8 +6,8 @@ ext {
     compileSdkVersion = 26
 
     //app dependencies
-    supportLibraryVersion = '26.1.0'
-    constraintLayoutVersion = '1.1.0-beta3'
+    supportLibraryVersion = '27.1.0'
+    constraintLayoutVersion = '1.1.0-beta5'
     guavaVersion = '23.0'
     daggerVersion = '2.14.1'
     rxandroidVersion = "2.0.1"
@@ -23,12 +23,13 @@ ext {
 
     //test
     junitVersion = '4.12'
-    runnerVersion = '1.0.1'
-    rulesVersion = '1.0.1'
+    runnerVersion = '1.0.2-alpha1'
+    rulesVersion = '1.0.2-alpha1'
     espressoVersion = '3.0.1'
     robolectricVersion = "3.7.1"
     mockitoVersion = '2.8.47'
     powermockVersion = '1.7.1'
+    archcoreVersion = '1.1.0'
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.

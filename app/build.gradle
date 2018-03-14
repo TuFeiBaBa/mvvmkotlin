@@ -16,7 +16,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.Test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -47,6 +47,14 @@ android {
     dataBinding {
         enabled = true
     }
+
+    //robolectric错误
+    //https://stackoverflow.com/questions/32315978/jvm-options-in-android-when-run-gradlew-test/37593189#37593189
+    testOptions {
+        unitTests.all {
+            jvmArgs '-noverify'
+        }
+    }
 }
 
 aspectjx {
@@ -56,6 +64,7 @@ aspectjx {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:support-v4:$supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
@@ -63,8 +72,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$roomVersion"
     kapt "android.arch.persistence.room:compiler:$roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$roomVersion"
-    testImplementation "android.arch.persistence.room:testing:$roomVersion"
-    testImplementation "android.arch.core:core-testing:1.1.0"
 
     //aspectj
     implementation "org.aspectj:aspectjrt:$aspectjVersion"
@@ -130,6 +137,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
 
     // Android Testing Support Library's runner and rules
-    androidTestCompile "com.android.support.test:runner:$runnerVersion"
-    androidTestCompile "com.android.support.test:rules:$rulesVersion"
+    androidTestImplementation "com.android.support.test:runner:$runnerVersion"
+    androidTestImplementation "com.android.support.test:rules:$rulesVersion"
+    androidTestImplementation "android.arch.persistence.room:testing:$roomVersion"
+    androidTestImplementation "android.arch.core:core-testing:$archcoreVersion"
+
+    testImplementation "android.arch.core:core-testing:$archcoreVersion"
+
 }

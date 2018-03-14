@@ -1,36 +1,36 @@
 package com.tufei.mvvmkotlin.db
 
+import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.persistence.room.Room
-import android.support.test.InstrumentationRegistry
-import android.support.test.filters.LargeTest
-import android.support.test.runner.AndroidJUnit4
-import com.tufei.mvvmkotlin.util.rx.RxJava
+import com.tufei.mvvmkotlin.testutil.RobolectricTest
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.robolectric.RuntimeEnvironment
 import java.util.*
 
 /**
  * @author tufei
- * @date 2018/3/13.
+ * @date 2018/3/14.
  */
-@RunWith(AndroidJUnit4::class)
-@LargeTest
-class PersonsLocalDataSourceTest {
-    val tony = "Tony"
-    val marry = "Marry"
-    val tom = "Tom"
+class PersonsLocalDataSourceTest : RobolectricTest() {
+    @get:Rule
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    private val tony = "Tony"
+    private val marry = "Marry"
+    private val tom = "Tom"
 
     private lateinit var database: PersonDatabase
     private lateinit var localDataSource: PersonsLocalDataSource
 
     @Before
     fun setup() {
-        database = Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getContext(),
+        database = Room.inMemoryDatabaseBuilder(RuntimeEnvironment.application,
                 PersonDatabase::class.java)
+                .allowMainThreadQueries()
                 .build()
-        RxJava.asyncToSync()
         localDataSource = PersonsLocalDataSource(database.personDao())
     }
 
@@ -54,21 +54,4 @@ class PersonsLocalDataSourceTest {
                     it == person
                 }
     }
-
-    @Test
-    fun getPerson() {
-    }
-
-    @Test
-    fun savePerson() {
-    }
-
-    @Test
-    fun deletePersons() {
-    }
-
-    @Test
-    fun deletePerson() {
-    }
-
 }
