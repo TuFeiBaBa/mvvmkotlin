@@ -18,7 +18,8 @@ class App : DaggerApplication() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> = DaggerAppComponent.builder().application(this).build()
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+            DaggerAppComponent.builder().application(this).build()
 
     override fun onCreate() {
         super.onCreate()
