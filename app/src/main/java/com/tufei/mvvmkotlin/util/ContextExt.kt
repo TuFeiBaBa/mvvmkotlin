@@ -10,9 +10,14 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
+import android.support.annotation.RawRes
 import android.widget.Toast
 import com.tufei.architecturedemo.util.ActivityCollector
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.IOException
+import java.io.InputStream
+import java.nio.charset.Charset
 
 /**
  * @author tufei
@@ -80,3 +85,57 @@ fun Context.installApp(apkPath: String) {
     startActivity(intent)
 }
 
+/**
+ * 读取assets目录下的文件
+ */
+fun Context.readAssetsFile(file: String): String {
+    val len: Int
+    val buf: ByteArray
+    var result = ""
+    try {
+        val `in` = assets.open(file)
+        len = `in`.available()
+        buf = ByteArray(len)
+        `in`.read(buf, 0, len)
+
+        result = String(buf, Charset.forName("utf-8"))
+        `in`.close()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+
+    return result
+}
+
+/**
+ * 读取raw目录下的文件
+ */
+fun Context.readRawFile(@RawRes rawId: Int): ByteArray {
+    var inputStream: InputStream? = null
+    val byteArrayOutputStream = ByteArrayOutputStream()
+    val buffer = ByteArray(1024)
+    var count = 0
+    try {
+        inputStream = applicationContext.resources.openRawResource(rawId)
+        while (count != -1) {
+            byteArrayOutputStream.write(buffer, 0, count)
+            count = inputStream.read(buffer)
+        }
+        byteArrayOutputStream.close()
+    } catch (e: IOException) {
+        e.printStackTrace()
+    } finally {
+        if (inputStream != null) {
+            try {
+                inputStream.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+    return byteArrayOutputStream.toByteArray()
+}
+
+fun Context.getScreenWidth() = applicationContext.resources.displayMetrics.widthPixels
+fun Context.getScreenHeight() = applicationContext.resources.displayMetrics.heightPixels
+fun Context.getScreenDensity() = applicationContext.resources.displayMetrics.density
