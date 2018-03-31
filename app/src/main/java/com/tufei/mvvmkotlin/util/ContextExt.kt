@@ -6,6 +6,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.Uri
@@ -87,51 +88,39 @@ fun Context.installApp(apkPath: String) {
 
 /**
  * 读取assets目录下的文件
+ * @return 文件内容
  */
+@Throws(IOException::class)
 fun Context.readAssetsFile(file: String): String {
-    val len: Int
-    val buf: ByteArray
+    var len: Int
+    var buf: ByteArray
     var result = ""
-    try {
-        val `in` = assets.open(file)
-        len = `in`.available()
+    with(assets.open(file)) {
+        len = available()
         buf = ByteArray(len)
-        `in`.read(buf, 0, len)
-
+        read(buf, 0, len)
         result = String(buf, Charset.forName("utf-8"))
-        `in`.close()
-    } catch (e: Exception) {
-        e.printStackTrace()
     }
-
     return result
 }
 
 /**
  * 读取raw目录下的文件
  */
+@Throws(IOException::class, Resources.NotFoundException::class)
 fun Context.readRawFile(@RawRes rawId: Int): ByteArray {
-    var inputStream: InputStream? = null
+    val inputStream: InputStream = applicationContext.resources.openRawResource(rawId)
     val byteArrayOutputStream = ByteArrayOutputStream()
     val buffer = ByteArray(1024)
     var count = 0
     try {
-        inputStream = applicationContext.resources.openRawResource(rawId)
         while (count != -1) {
             byteArrayOutputStream.write(buffer, 0, count)
             count = inputStream.read(buffer)
         }
-        byteArrayOutputStream.close()
-    } catch (e: IOException) {
-        e.printStackTrace()
     } finally {
-        if (inputStream != null) {
-            try {
-                inputStream.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
+        byteArrayOutputStream.close()
+        inputStream.close()
     }
     return byteArrayOutputStream.toByteArray()
 }
