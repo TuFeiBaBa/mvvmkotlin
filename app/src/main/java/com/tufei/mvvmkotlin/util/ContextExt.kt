@@ -14,10 +14,7 @@ import android.os.Build
 import android.support.annotation.RawRes
 import android.widget.Toast
 import com.tufei.architecturedemo.util.ActivityCollector
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.IOException
-import java.io.InputStream
+import java.io.*
 import java.nio.charset.Charset
 
 /**
@@ -90,7 +87,7 @@ fun Context.installApp(apkPath: String) {
  * 读取assets目录下的文件
  * @return 文件内容
  */
-@Throws(IOException::class)
+@Throws(IOException::class, FileNotFoundException::class)
 fun Context.readAssetsFile(file: String): String {
     var len: Int
     var buf: ByteArray
