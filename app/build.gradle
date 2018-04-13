@@ -55,6 +55,71 @@ android {
             jvmArgs '-noverify'
         }
     }
+
+    flavorDimensions "default"
+    // If you need to add more flavors, consider using flavor dimensions.
+    productFlavors {
+        mock {
+            dimension "default"
+            applicationIdSuffix = ".mock"
+        }
+        prod {
+            dimension "default"
+        }
+    }
+
+    // Remove mockRelease as it's not needed.
+    android.variantFilter { variant ->
+        if (variant.buildType.name == 'release'
+                && variant.getFlavors().get(0).name == 'mock') {
+            variant.setIgnore(true)
+        }
+    }
+
+    //signingConfigs代码块一定要写在buildTypes前面，否则会报下面这种错：
+    //Could not find property 'debugConfig' on SigningConfig container.
+    signingConfigs {
+        //如果是线上项目，直接保存在这里，肯定不恰当，应当在当前project下创建
+        // 一个signing.properties文件，把相关配置放在里面
+        //release {//发布版本的签名配置
+        //    storeFile file(props['KEYSTORE_FILE'])
+        //    keyAlias props['KEY_ALIAS']
+        //    storePassword props['KEYSTORE_PWD']
+        //    keyPassword props['KEY_PWD']
+        //}
+
+        //签名配置文件signing.properties：
+        //KEYSTORE_FILE = mvvmkotlin.jks
+        //KEY_ALIAS = key0
+        //KEYSTORE_PWD= abcdefg123456
+        //KEY_PWD= abcdefg123456
+
+        release {
+            storeFile file ("mvvmkotlin.jks")
+            storePassword "abcdefg123456"
+            keyAlias "key0"
+            keyPassword "abcdefg123456"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig  signingConfigs.release
+            minifyEnabled true
+            //zipAlign可以让安装包中的资源按4字节对齐，这样可以减少应用在运行时的内存消耗。
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //打包apk重命名
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name == 'release') {
+                outputFileName = "mvvm-kotlin_${variant.versionName}.apk"
+            }
+        }
+    }
 }
 
 aspectjx {
