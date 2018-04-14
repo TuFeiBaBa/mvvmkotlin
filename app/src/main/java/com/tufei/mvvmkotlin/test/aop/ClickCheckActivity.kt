@@ -25,11 +25,11 @@ class ClickCheckActivity : BaseActivity() {
 
     @ClickCheck(tag = 1)
     private fun noTipOnDuplicateClick() {
-        Log.d(TAG,"noTipOnDuplicateClick")
+        Log.d(TAG, "noTipOnDuplicateClick")
     }
 
-    @ClickCheck("请勿重复点击",tag = 2)
+    @ClickCheck(R.string.duplicate_click_tip, tag = 2)
     private fun withTipOnDuplicateClick() {
-        Log.d(TAG,"withTipOnDuplicateClick")
+        Log.d(TAG, "withTipOnDuplicateClick")
     }
 }

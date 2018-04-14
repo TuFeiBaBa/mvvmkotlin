@@ -5,4 +5,7 @@
     <string name="dialog_title">温馨提示</string>
     <string name="dialog_positive_text">确认</string>
     <string name="dialog_negative_text">取消</string>
+
+    <string name="no_net_tip">请检查您的网络!</string>
+    <string name="duplicate_click_tip">请勿重复点击!</string>
 </resources>

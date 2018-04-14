@@ -1,7 +1,6 @@
 package com.tufei.mvvmkotlin
 
 import android.databinding.DataBindingUtil
-import android.databinding.Observable
 import android.databinding.ViewDataBinding
 import android.os.Bundle
 import android.support.annotation.LayoutRes
@@ -17,7 +16,6 @@ import dagger.android.support.DaggerFragment
  */
 abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
     val TAG: String = javaClass.simpleName
-    private lateinit var toastCallback: Observable.OnPropertyChangedCallback
     lateinit var viewModel: T
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -30,23 +28,12 @@ abstract class BaseFragment<T : BaseViewModel> : DaggerFragment() {
         setupToast()
     }
 
-    override fun onDestroy() {
-        viewModel.toastTip.removeOnPropertyChangedCallback(toastCallback)
-        super.onDestroy()
-    }
-
     abstract fun setViewModel(): T
 
     @LayoutRes
     abstract fun setContentView(): Int
 
     private fun setupToast() {
-        toastCallback = object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(observable: Observable, i: Int) {
-                val tip = viewModel.toastTip.get()
-                context?.showToast(tip)
-            }
-        }
-        viewModel.toastTip.addOnPropertyChangedCallback(toastCallback)
+        context?.showToast(this,viewModel.toastTip)
     }
 }

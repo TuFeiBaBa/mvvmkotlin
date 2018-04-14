@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -12,8 +14,10 @@ import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.support.annotation.RawRes
+import android.support.annotation.StringRes
 import android.widget.Toast
 import com.tufei.architecturedemo.util.ActivityCollector
+import com.tufei.mvvmkotlin.SingleLiveEvent
 import java.io.*
 import java.nio.charset.Charset
 
@@ -23,16 +27,29 @@ import java.nio.charset.Charset
  */
 private var toast: Toast? = null
 
+enum class ToastTime {
+    LONG, SHORT
+}
+
 @SuppressLint("ShowToast")
-fun Context.showToast(tip: String, time: Int = Toast.LENGTH_SHORT) {
-    if (time !in Toast.LENGTH_SHORT..Toast.LENGTH_LONG) {
-        throw IllegalArgumentException("Only Toast.LENGTH_SHORT or Toast.LENGTH_LONG！")
+fun Context.showToast(lifecycleOwner: LifecycleOwner, toastTipEvent: SingleLiveEvent<Int>, toastTime: ToastTime = ToastTime.SHORT) {
+    toastTipEvent.observe(lifecycleOwner, Observer {
+        it?.let {
+            showToast(it, toastTime)
+        }
+    })
+}
+
+@SuppressLint("ShowToast")
+fun Context.showToast(@StringRes tipRes: Int, toastTime: ToastTime = ToastTime.SHORT) {
+    val time = when (toastTime) {
+        ToastTime.LONG -> Toast.LENGTH_LONG
+        ToastTime.SHORT -> Toast.LENGTH_SHORT
     }
     toast?.apply {
-        setText(tip)
-        duration = time
+        setText(getString(tipRes))
     } ?: apply {
-        toast = Toast.makeText(applicationContext, tip, time)
+        toast = Toast.makeText(applicationContext, getString(tipRes), time)
     }
     toast?.show()
 }

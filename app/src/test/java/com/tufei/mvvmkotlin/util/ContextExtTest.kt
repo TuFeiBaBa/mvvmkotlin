@@ -1,6 +1,5 @@
 package com.tufei.mvvmkotlin.util
 
-import android.widget.Toast
 import com.tufei.mvvmkotlin.R
 import junit.framework.Assert.assertEquals
 import org.junit.Test
@@ -9,7 +8,6 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.shadows.ShadowToast
 import java.io.FileNotFoundException
-import java.lang.IllegalArgumentException
 
 /**
  * @author tufei
@@ -21,16 +19,11 @@ class ContextExtTest {
 
     @Test
     fun showToastNormal() {
-        context.showToast("hello")
-        assertEquals("hello", ShadowToast.getTextOfLatestToast())
+        context.showToast(R.string.app_name)
+        assertEquals(context.getString(R.string.app_name), ShadowToast.getTextOfLatestToast())
 
-        context.showToast("world", Toast.LENGTH_LONG)
-        assertEquals("world", ShadowToast.getTextOfLatestToast())
-    }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun showToastByIllegalArgument() {
-        context.showToast("", -1)
+        context.showToast(R.string.app_name, ToastTime.LONG)
+        assertEquals(context.getString(R.string.app_name), ShadowToast.getTextOfLatestToast())
     }
 
 

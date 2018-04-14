@@ -2,7 +2,6 @@ package com.tufei.mvvmkotlin
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import android.databinding.ObservableField
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -12,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 open class BaseViewModel(context: Application) : AndroidViewModel(context) {
     val TAG = javaClass.simpleName
     protected val compositeDisposable = CompositeDisposable()
-    var toastTip = ObservableField<String>()
+    val toastTip = SingleLiveEvent<Int>()
 
     override fun onCleared() {
         compositeDisposable.clear()

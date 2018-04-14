@@ -31,14 +31,14 @@ class ClickAspect {
         val clickCheck = signature.method.getAnnotation(ClickCheck::class.java)
         val isDuplicate = isDuplicateClick(clickCheck.interval)
         lastClickTime = System.currentTimeMillis()
-        val tip = clickCheck.tip
+        val tipRes = clickCheck.tipRes
         val tag = clickCheck.tag
         val isSame = tag == lastTag
         lastTag = tag
         if (isDuplicate && isSame) {
-            if (!tip.isEmpty()) {
+            if (tipRes != 0) {
                 val context = getContext(joinPoint.`this`)
-                context?.showToast(tip)
+                context?.showToast(tipRes)
             }
             return null
         }

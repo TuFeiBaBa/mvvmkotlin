@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Fragment
 import android.content.Context
 import android.view.View
+import com.tufei.mvvmkotlin.R
 import com.tufei.mvvmkotlin.util.isNetworkAvailable
 import com.tufei.mvvmkotlin.util.showToast
 import org.aspectj.lang.ProceedingJoinPoint
@@ -44,7 +45,7 @@ class NetAspect {
             val context = getContext(any)
             if (context != null) {
                 if (!context.isNetworkAvailable()) {
-                    context.showToast("请检查您的网络！")
+                    context.showToast(R.string.no_net_tip)
                     return null
                 }
             }
